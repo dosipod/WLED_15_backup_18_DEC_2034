@@ -6184,8 +6184,9 @@ uint16_t mode_2Dscrollingtext(void) {
   for (int i = 0; i < numberOfLetters; i++) {
     int xoffset = int(cols) - int(SEGENV.aux0) + rotLW*i;
     if (xoffset + rotLW < 0) continue; // don't draw characters off-screen
-    uint32_t col1 = SEGMENT.color_from_palette(SEGENV.aux1, false, PALETTE_SOLID_WRAP, 0);
-    uint32_t col2 = BLACK;
+    uint32_t col1 = SEGMENT.color_from_palette(SEGENV.aux0, false, PALETTE_SOLID_WRAP, 0);
+    uint32_t col2 = SEGMENT.color_from_palette(SEGENV.aux1, false, PALETTE_SOLID_WRAP, 0);
+    
     if (SEGMENT.check1 && SEGMENT.palette == 0) {
       col1 = SEGCOLOR(0);
       col2 = SEGCOLOR(2);
