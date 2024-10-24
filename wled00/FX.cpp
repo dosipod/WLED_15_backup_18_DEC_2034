@@ -200,7 +200,7 @@ uint16_t color_wipe(bool rev, bool useRandomColors) {
     } else
     {
       SEGMENT.setPixelColor(index, back? col0 : col1);
-      if (i == ledIndex) SEGMENT.setPixelColor(index, back? col0 : col0);
+      if (i == SEGLEN) SEGMENT.setPixelColor(index, back? col0 : col0);
     }
   }
   return FRAMETIME;
