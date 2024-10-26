@@ -6184,6 +6184,7 @@ uint16_t mode_2Dscrollingtext(void) {
   for (int i = 0; i < numberOfLetters; i++) {
     int xoffset = int(cols) - int(SEGENV.aux0) + rotLW*i;
     if (xoffset + rotLW < 0) continue; // don't draw characters off-screen
+    //ALDIY  22 Oct 2024 , FIX for using palette 
     uint32_t col1 = SEGMENT.color_from_palette(SEGENV.aux0, false, PALETTE_SOLID_WRAP, 0);
     uint32_t col2 = SEGMENT.color_from_palette(SEGENV.aux1, false, PALETTE_SOLID_WRAP, 0);
     
