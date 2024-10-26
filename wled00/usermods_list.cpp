@@ -242,6 +242,22 @@
 #include "../usermods/LD2410_v2/usermod_ld2410.h"
 #endif
 
+
+#ifdef PIXELART_CLIENT_ENABLED
+#include <HTTPClient.h>
+#include "../usermods/pixelart_client/usermod_pixelart_client.cpp"
+#endif
+
+#ifdef USERMOD_ALDIY
+#include "../usermods/usermod_aldiy/usermod_aldiy.h"
+#endif
+
+
+#ifdef USERMOD_RF433
+#include "../usermods/RF433/RF433_V2.h"
+#endif
+
+
 void registerUsermods()
 {
 /*
@@ -470,4 +486,17 @@ void registerUsermods()
   #ifdef USERMOD_POV_DISPLAY
   UsermodManager::add(new PovDisplayUsermod());
   #endif
+
+  #ifdef PIXELART_CLIENT_ENABLED
+  usermods.add(new PixelArtClient());
+  #endif
+
+  #ifdef USERMOD_ALDIY
+  usermods.add(new AldiyUsermod());
+  #endif
+  
+  #ifdef USERMOD_RF433
+  usermods.add(new RF433Usermod());
+  #endif
+  
 }
