@@ -703,6 +703,10 @@ function parseInfo(i) {
 //}
 //setInnerHTML(obj, html);
 
+
+  //  ALDIY Oct 26,2024 Hide mac address due to security when sharing info page 
+  //  ${inforow("MAC address",i.mac)}
+
 function populateInfo(i)
 {
 	var cn="";
@@ -734,8 +738,6 @@ ${inforow("Free heap",(i.freeheap/1024).toFixed(1)," kB")}
 ${i.psram?inforow("Free PSRAM",(i.psram/1024).toFixed(1)," kB"):""}
 ${inforow("Estimated current",pwru)}
 ${inforow("Average FPS",i.leds.fps)}
-// ALDIY Oct 26,2024 Hide mac address due to security when sharing info page 
-// ${inforow("MAC address",i.mac)}
 ${inforow("MAC spoofing anyone?",i.name)}
 ${inforow("CPU clock",i.clock," MHz")}
 ${inforow("Flash size",i.flash," MB")}
@@ -743,7 +745,7 @@ ${inforow("Filesystem",i.fs.u + "/" + i.fs.t + " kB (" +Math.round(i.fs.u*100/i.
 ${inforow("Environment",i.arch + " " + i.core + " (" + i.lwip + ")")}
 </table>`;
 	gId('kv').innerHTML = cn;
-	//  update all sliders in Info
+	//  update all sliders in Info ${inforow("MAC address",i.mac)}
 	d.querySelectorAll('#kv .sliderdisplay').forEach((sd,i) => {
 		let s = sd.previousElementSibling;
 		if (s) updateTrail(s);
