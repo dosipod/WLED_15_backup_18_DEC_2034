@@ -52,12 +52,12 @@ void resetTimebase()
   strip.timebase = 0 - millis();
 }
 
-
 void toggleOnOff()
 {
   if (bri == 0)
   {
     bri = briLast;
+    strip.restartRuntime();
   } else
   {
     briLast = bri;
@@ -65,6 +65,8 @@ void toggleOnOff()
   }
   stateChanged = true;
 }
+
+
 
 
 //scales the brightness with the briMultiplier factor
