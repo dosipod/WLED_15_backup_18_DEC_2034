@@ -16,6 +16,7 @@ jobs:
     - name: Install PlatformIO
       run: pip install -r requirements.txt
     - name: Set current date as env variable
+      id: date
       run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
     - name: Echo current date
       run: |
@@ -64,7 +65,7 @@ jobs:
       run: pio run -e ${{ matrix.environment }}
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.NOW }}-${{ matrix.environment }}
+        name: ${{ env.date }}-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
