@@ -20,7 +20,7 @@ jobs:
     - name: Echo current date
       run: |
         echo $NOW # Gives "2022-12-11T01:42:20"
-        echo ${{ env.NOW }}
+        echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20"
     
     - name: Get default environments
       id: envs
@@ -64,7 +64,7 @@ jobs:
       run: pio run -e ${{ matrix.environment }}
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.NOW }}-${{ matrix.environment }}
+        name: ${ env.NOW }-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
