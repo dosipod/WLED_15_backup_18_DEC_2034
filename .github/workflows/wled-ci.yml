@@ -15,10 +15,10 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-    - name: Set the date as var
+    - name: Set the date as variable
       id: TheNow
       run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
-    - name: PRINT the vars 
+    - name: Print the date variable
       run: |
         echo $NOW # Gives "2022-12-11T01:42:20" USING NOW 
         echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20" USING env.NOW 
@@ -70,7 +70,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: $GITHUB_RUN_ID-${{ matrix.environment }}
+        name: ${{TheNow.NOW }} -${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
