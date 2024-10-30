@@ -15,7 +15,8 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-    - name: Set the date as var 
+    - name: Set the date as var
+      id: TheNow
       run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
     - name: PRINT the vars 
       run: |
@@ -30,7 +31,7 @@ jobs:
         #env # this will print all the env var 
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
-      #NOW: ${{ steps.envs.outputs.now }}      
+      NOW: ${{ steps.TheNow.outputs.NOW }}      
     
           
   build:
