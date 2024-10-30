@@ -70,7 +70,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ TheNow.NOW }} -${{ matrix.environment }}
+        name: ${{ github.event.repository.updated_at}} -${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
