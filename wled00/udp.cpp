@@ -454,7 +454,8 @@ void exitRealtime() {
   if (useMainSegmentOnly) { // unfreeze live segment again
     strip.getMainSegment().freeze = false;
   } else {
-    strip.show(); // possible fix for #3589
+    // strip.show();// possible fix for #3589
+    strip.trigger(); // ALDIY- changed for unfreeze after ddp
   }
   updateInterfaces(CALL_MODE_WS_SEND);
 }
