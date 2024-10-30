@@ -22,6 +22,7 @@ jobs:
       run: |
         echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
         echo "now=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_OUTPUT
+        echo $GITHUB_RUN_ID
         env
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
