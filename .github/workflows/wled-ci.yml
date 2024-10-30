@@ -15,23 +15,6 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-    - name: Set the date as variable
-      id: TheNow
-      run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
-    - name: Print the date variable
-      run: |
-        echo $NOW # Gives "2022-12-11T01:42:20" USING NOW 
-        echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20" USING env.NOW 
-        echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID
-
-        # Set the date time
-    - name: Retrieve current Date Time in Singapore TimeZone
-      shell: bash
-      run: echo "START_TIME=$(TZ=":Asia/Singapore" date -R|sed 's/.....$//')" >> $GITHUB_ENV
- 
-    # Fetch the date time as Github ENV variable
-    - name: print date
-      run: echo ${{ env.START_TIME }}
 
         
     - name: Get default environments
@@ -75,12 +58,22 @@ jobs:
           cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
+#-----------------------------------------------------------------------------------------
+    - name: Set the date as variable
+      id: TheNow
+      run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
+    - name: Print the date variable
+      run: |
+        echo $NOW # Gives "2022-12-11T01:42:20" USING NOW 
+        echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20" USING env.NOW 
+        echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID   
+ #---------------------------------------------------------------------------------------    
     - name: Build firmware
       run: pio run -e ${{ matrix.environment }}
 
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.START_TIME }}-${{ matrix.environment }}
+        name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
