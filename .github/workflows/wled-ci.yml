@@ -15,12 +15,7 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-    - name: Set current date as env variable
-      run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
-    - name: Echo current date
-      run: |
-        echo $NOW # Gives "2022-12-11T01:42:20"
-        echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20"
+
           
     - name: Get default environments
       id: envs
@@ -79,6 +74,8 @@ jobs:
       run: pip install -r requirements.txt
     - name: Build firmware
       run: pio run -e ${{ matrix.environment }}
+    - name: Set current date as env variable
+      run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
     - uses: actions/upload-artifact@v4
       with:
         name: $TAG_NAME-${{ matrix.environment }}
