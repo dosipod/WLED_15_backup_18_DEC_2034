@@ -15,14 +15,19 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-
           
     - name: Get default environments
       id: envs
       run: |
         echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
+         echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_OUTPUT
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
+      NOW: ${{ steps.envs.outputs.NOW }}
+
+        
+ 
+
       
   get_the_faking_date:      
     name: Example
@@ -74,11 +79,10 @@ jobs:
       run: pip install -r requirements.txt
     - name: Build firmware
       run: pio run -e ${{ matrix.environment }}
-    - name: Set current date as env variable
-      run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
+
     - uses: actions/upload-artifact@v4
       with:
-        name: $NOW-${{ matrix.environment }}
+        name: ${{ steps.envs.outputs.NOW }}-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
