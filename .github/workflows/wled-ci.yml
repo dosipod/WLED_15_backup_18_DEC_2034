@@ -22,11 +22,11 @@ jobs:
       run: |
         echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
         echo "now=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_OUTPUT
+        env
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
       now: ${{ steps.envs.outputs.now }}      
- 
- 
+    
           
   build:
     name: Build Enviornments
