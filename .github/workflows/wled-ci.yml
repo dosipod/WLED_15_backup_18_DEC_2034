@@ -15,36 +15,18 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-          
+
+    
     - name: Get default environments
       id: envs
       run: |
         echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
-        echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_OUTPUT
+        echo "now=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_OUTPUT
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
-      NOW: ${{ steps.envs.outputs.NOW }}
-
-        
+      now: ${{ steps.envs.outputs.now }}      
  
-
-      
-  get_the_faking_date:      
-    name: Example
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - name: Test with environment variables
-        run: echo $TAG_NAME - $RELEASE_NAME
-        env:
-          TAG_NAME: nightly-tag-${{ steps.date.outputs.date }}
-          RELEASE_NAME: nightly-release-${{ steps.date.outputs.date }}
-      - name: Test with input
-        uses: actions/hello-world-docker-action@master
-        with:
-          who-to-greet: Mona-the-Octocat-${{ steps.date.outputs.date }}
+ 
           
   build:
     name: Build Enviornments
