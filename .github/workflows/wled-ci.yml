@@ -64,7 +64,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.NOW }}-${{ matrix.environment }}
+        name: ${{ steps.envs.outputs.now }}-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
