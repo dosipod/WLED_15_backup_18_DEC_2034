@@ -15,21 +15,22 @@ jobs:
         cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
-
-    
+    - name: Set the date as var 
+      run: echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
+    - name: PRINT the vars 
+      run: |
+        echo $NOW # Gives "2022-12-11T01:42:20" USING NOW 
+        echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20" USING env.NOW 
+        echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID
+        
     - name: Get default environments
       id: envs
       run: |
         echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
-        echo "NOW=$(date +'%Y-%m-%d-T%H%M%S')" >> $GITHUB_ENV
-        echo $NOW # Gives "2022-12-11T01:42:20" USING NOW 
-        echo ${{ env.NOW }}  # Also Gives "2022-12-11T01:42:20" USING env.NOW 
-        echo $GITHUB_RUN_ID 
-        echo ${{ env.NOW }}  # Also 3RD TIME Gives "2022-12-11T01:42:20"
         #env # this will print all the env var 
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
-      NOW: ${{ steps.envs.outputs.now }}      
+      #NOW: ${{ steps.envs.outputs.now }}      
     
           
   build:
