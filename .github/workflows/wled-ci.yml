@@ -18,8 +18,7 @@ jobs:
     - name: Get default environments
       id: envs
       run: |
-        TODAYDATE=`date -I | tr -d '\n'`
-        echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
+          echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
 
@@ -55,11 +54,22 @@ jobs:
           cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
+#-----------------------------------------------------------------------------------------
+    - name: Set the date as variable
+      id: DateToday
+      run: echo "NOW=$(date +'%Y%m%dT%H%M')" >> $GITHUB_ENV
+    - name: Print the date variable
+      run: |
+        echo $NOW # Gives "20241031T0304" USING NOW 
+        echo ${{ env.NOW }}  # Also Gives "20241031T0304" USING env.NOW 
+        echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID  for future use  
+ #---------------------------------------------------------------------------------------    
+      
     - name: Build firmware
       run: pio run -e ${{ matrix.environment }}
     - uses: actions/upload-artifact@v4
       with:
-        name: $TODAYDATE -${{ matrix.environment }}
+        name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
