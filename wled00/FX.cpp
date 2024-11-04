@@ -4951,22 +4951,27 @@ static const char _data_FX_MODE_2DCOLOREDBURSTS[] PROGMEM = "Colored Bursts@Spee
 /////////////////////
 //      2D DNA     //
 /////////////////////
-uint16_t mode_2Ddna(void) {         // dna originally by by ldirko at https://pastebin.com/pCkkkzcs. Updated by Preyy. WLED conversion by Andrew Tuline.
-  if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
 
-  const int cols = SEGMENT.virtualWidth();
-  const int rows = SEGMENT.virtualHeight();
 
-  SEGMENT.fadeToBlackBy(64);
-  for (int i = 0; i < cols; i++) {
-    SEGMENT.setPixelColorXY(i, beatsin8(SEGMENT.speed/8, 0, rows-1, 0, i*4    ), ColorFromPalette(SEGPALETTE, i*5+strip.now/17, beatsin8(5, 55, 255, 0, i*10), LINEARBLEND));
-    SEGMENT.setPixelColorXY(i, beatsin8(SEGMENT.speed/8, 0, rows-1, 0, i*4+128), ColorFromPalette(SEGPALETTE, i*5+128+strip.now/17, beatsin8(5, 55, 255, 0, i*10+128), LINEARBLEND));
+
+
+uint16_t WS2812FX::mode_2Ddna(void) {         // dna originally by by ldirko at https://pastebin.com/pCkkkzcs. Updated by Preyy. WLED conversion by Andrew Tuline.
+
+  fadeToBlackBy(leds, 64);
+
+  for(int i = 0; i < SEGMENT.width; i++) {               // change to height if you want to re-orient, and swap the 4 lines below.
+ //     leds[XY(beatsin8(SEGMENT.speed/8, 0, SEGMENT.width-1, 0, i*4), i)] = ColorFromPalette(currentPalette, i*5+millis()/17, beatsin8(5, 55, 255, 0, i*10), LINEARBLEND);
+ //     leds[XY(beatsin8(SEGMENT.speed/8, 0, SEGMENT.width-1, 0, i*4+128), i)] = ColorFromPalette(currentPalette,i*5+128+millis()/17, beatsin8(5, 55, 255, 0, i*10+128), LINEARBLEND);        // 180 degrees (128) out of phase
+     leds[XY(i, beatsin8(SEGMENT.speed/8, 0, SEGMENT.height-1, 0, i*4))] = ColorFromPalette(currentPalette, i*5+millis()/17, beatsin8(5, 55, 255, 0, i*10), LINEARBLEND);
+      leds[XY(i, beatsin8(SEGMENT.speed/8, 0, SEGMENT.height-1, 0, i*4+128))] = ColorFromPalette(currentPalette,i*5+128+millis()/17, beatsin8(5, 55, 255, 0, i*10+128), LINEARBLEND);        // 180 degrees (128) out of phase
   }
-  SEGMENT.blur(SEGMENT.intensity>>3);
+
+  blur2d(leds, SEGMENT.intensity/8);
+
+  setPixels(leds);
 
   return FRAMETIME;
 } // mode_2Ddna()
-static const char _data_FX_MODE_2DDNA[] PROGMEM = "DNA@Scroll speed,Blur;;!;2";
 
 
 
