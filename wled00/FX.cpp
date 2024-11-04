@@ -4950,24 +4950,6 @@ static const char _data_FX_MODE_2DCOLOREDBURSTS[] PROGMEM = "Colored Bursts@Spee
 /////////////////////
 //      2D DNA     //
 /////////////////////
-//uint16_t mode_2Ddna(void) {         // dna originally by by ldirko at https://pastebin.com/pCkkkzcs. Updated by Preyy. WLED conversion by Andrew Tuline.
-//  if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
-
-//  const int cols = SEGMENT.virtualWidth();
-//  const int rows = SEGMENT.virtualHeight();
-
-//  SEGMENT.fadeToBlackBy(64);
-//  for (int i = 0; i < cols; i++) {
-//    SEGMENT.setPixelColorXY(i, beatsin8(SEGMENT.speed/8, 0, rows-1, 0, i*4    ), ColorFromPalette(SEGPALETTE, i*5+strip.now/17, beatsin8(5, 55, 255, 0, i*10), LINEARBLEND));
-//    SEGMENT.setPixelColorXY(i, beatsin8(SEGMENT.speed/8, 0, rows-1, 0, i*4+128), ColorFromPalette(SEGPALETTE, i*5+128+strip.now/17, beatsin8(5, 55, 255, 0, i*10+128), LINEARBLEND));
-//  }
-//  SEGMENT.blur(SEGMENT.intensity>>3);
-//
-//  return FRAMETIME;
-//} // mode_2Ddna()
-//static const char _data_FX_MODE_2DDNA[] PROGMEM = "DNA@Scroll speed,Blur;;!;2";
-
-
 uint16_t mode_2Ddna(void) {         // dna originally by by ldirko at https://pastebin.com/pCkkkzcs. Updated by Preyy. WLED conversion by Andrew Tuline.
   if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
 
