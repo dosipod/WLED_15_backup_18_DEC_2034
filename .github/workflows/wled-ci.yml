@@ -65,13 +65,13 @@ jobs:
 #---------------------------------------------------------------------------------------    
       
     - name: Build firmware
-      run: pio run -e ${{ env.NOW }}-${{ matrix.environment }}
+      run: pio run -e ${{ matrix.environment }}
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
-          build_output/release/*.bin
-          build_output/release/*_ESP02*.bin.gz
+          build_output/release/${{ env.NOW }}*.bin
+          build_output/release/${{ env.NOW }}*_ESP02*.bin.gz
   release:
     name: Create Release
     runs-on: ubuntu-latest
