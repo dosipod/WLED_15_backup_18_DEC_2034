@@ -331,40 +331,23 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
 
 uint16_t mode_spiral(void) {
-       // Clear the matrix
-    SEGMENT.fill(SEGCOLOR(1));
+    // Define the colors for the sun effect
+    uint32_t sunColor = 0xFFFF00; // Yellow
+    uint32_t sunGlowColor = 0xFFA500; // Orange
 
-    // Create raindrops
+    // Fill the LEDs with the sun color
+    SEGMENT.fill(sunColor);
+
+    // Add a glowing effect
     for (int i = 0; i < SEGLEN; i++) {
-        if (random8() < SEGMENT.intensity) {
-            int x = random16(16); // Random x position
-            int y = random16(16); // Random y position
-            int index = y * 16 + x; // Convert (x, y) to LED index
-            SEGMENT.setPixelColor(index, SEGCOLOR(0)); // Set raindrop color
-        }
-    }
-
-    // Move raindrops down
-    for (int y = 15; y >= 0; y--) {
-        for (int x = 0; x < 16; x++) {
-            int index = y * 16 + x;
-            if (SEGMENT.getPixelColor(index) == SEGCOLOR(0)) {
-                int newIndex = (y + 1) * 16 + x;
-                if (newIndex < 256) {
-                    SEGMENT.setPixelColor(newIndex, SEGCOLOR(0));
-                    SEGMENT.setPixelColor(index, SEGCOLOR(1));
-                }
-            }
-        }
+        uint8_t brightness = sin8((i * 255) / SEGLEN);
+        SEGMENT.setPixelColor(i, color_blend(sunColor, sunGlowColor, brightness));
     }
 
     return FRAMETIME;
 }
-static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!;!,!;!;01";
+static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
                                                     
-
-
-
 
 /*
  * effect "Dynamic" with smooth color-fading
