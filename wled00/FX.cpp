@@ -325,6 +325,28 @@ uint16_t mode_wave(void) {
 }
 static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
+/* Aldiy mode_spiral
+*
+*/ 
+
+
+uint16_t mode_spiral(void) {
+    for (int i = 0; i < SEGLEN; i++) {
+        float angle = (float)i / SEGLEN * 2.0 * PI; // Calculate the angle for each LED
+        float radius = (float)i / SEGLEN; // Calculate the radius for each LED
+        uint8_t x = (sin(angle + strip.now / 1000.0) * radius * 127) + 128; // Calculate x position
+        uint8_t y = (cos(angle + strip.now / 1000.0) * radius * 127) + 128; // Calculate y position
+        uint8_t color = (x + y) / 2; // Combine x and y to get the color value
+        SEGMENT.setPixelColor(i, color_blend(SEGCOLOR(0), SEGCOLOR(1), color));
+    }
+    return FRAMETIME;
+}
+static const char _data_FX_MODE_SPIRAL[] PROGMEM = "Spiral@!,!;;!";
+
+
+
+
+
 
 
 
@@ -7955,6 +7977,8 @@ void WS2812FX::setupEffectData() {
   addEffect(FX_MODE_TV_SIMULATOR, &mode_tv_simulator, _data_FX_MODE_TV_SIMULATOR);
   addEffect(FX_MODE_DYNAMIC_SMOOTH, &mode_dynamic_smooth, _data_FX_MODE_DYNAMIC_SMOOTH);
   addEffect(FX_MODE_WAVE, &mode_wave, _data_FX_MODE_WAVE);
+  addEffect(FX_MODE_SPIRAL, &mode_spiral, _data_FX_MODE_SPIRAL);
+
   
   // --- 1D audio effects ---
   addEffect(FX_MODE_PIXELS, &mode_pixels, _data_FX_MODE_PIXELS);
