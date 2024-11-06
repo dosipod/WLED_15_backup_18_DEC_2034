@@ -343,8 +343,33 @@ uint16_t mode_spiral(void) {
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "Spiral@!,!;;!";
 
+/* Aldiy mode_spiral_matrix
+*
+*/ 
 
+uint16_t mode_2Dspiral_matrix(void) {
+    float centerX = 8.0; // Center of the matrix
+    float centerY = 8.0; // Center of the matrix
+    float radius = 0.0;
+    float angle = 0.0;
+    float angleIncrement = 0.1; // Adjust for tighter or looser spiral
+    float radiusIncrement = 0.1; // Adjust for faster or slower spiral expansion
 
+    for (int i = 0; i < 256; i++) {
+        int x = centerX + radius * cos(angle);
+        int y = centerY + radius * sin(angle);
+        int index = y * 16 + x; // Convert (x, y) to LED index
+
+        if (index >= 0 && index < 256) {
+            SEGMENT.setPixelColor(index, color_blend(SEGCOLOR(0), SEGCOLOR(1), (i * 255) / 256));
+        }
+
+        angle += angleIncrement;
+        radius += radiusIncrement;
+    }
+    return FRAMETIME;
+}
+static const char _data_FX_MODE_2DSPIRAL_MATRIX[] PROGMEM = "2DSpiral_matrix@!,!;;!";
 
 
 
@@ -8033,6 +8058,7 @@ void WS2812FX::setupEffectData() {
 
   addEffect(FX_MODE_2DFIRENOISE, &mode_2Dfirenoise, _data_FX_MODE_2DFIRENOISE);
   addEffect(FX_MODE_2DSQUAREDSWIRL, &mode_2Dsquaredswirl, _data_FX_MODE_2DSQUAREDSWIRL);
+  addEffect(FX_MODE_2DSPIRAL_MATRIX, &mode_2DSpiral_matrix, _data_FX_MODE_2DSPIRAL_MATRIX);
 
   //non audio
   addEffect(FX_MODE_2DDNA, &mode_2Ddna, _data_FX_MODE_2DDNA);
