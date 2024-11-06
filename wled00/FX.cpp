@@ -312,6 +312,21 @@ uint16_t mode_dynamic(void) {
 }
 static const char _data_FX_MODE_DYNAMIC[] PROGMEM = "Dynamic@!,!,,,,Smooth;;!";
 
+/* Aldiy mode_wave
+*
+*/ 
+
+uint16_t mode_wave(void) {
+    for (int i = 0; i < SEGLEN; i++) {
+        uint8_t wave = (sin8(i * 16 + strip.now / 4) - 128) / 2 + 128;
+        SEGMENT.setPixelColor(i, color_blend(SEGCOLOR(0), SEGCOLOR(1), wave));
+    }
+    return FRAMETIME;
+}
+static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
+
+
+
 
 /*
  * effect "Dynamic" with smooth color-fading
