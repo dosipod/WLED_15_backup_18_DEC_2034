@@ -86,8 +86,8 @@ jobs:
       with:
         draft: True
         files: |
-          ${{ env.NOW }}*.bin
-          ${{ env.NOW }}*.bin.gz
+          *.bin
+          *.bin.gz
 
 
   testCdata:
