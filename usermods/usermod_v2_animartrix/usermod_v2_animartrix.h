@@ -78,9 +78,11 @@ class ANIMartRIXMod:public ANIMartRIX {
 	}
 	void setPixelColor(int x, int y, rgb pixel) {
 		SEGMENT.setPixelColorXY(x, y, CRGB(pixel.red, pixel.green, pixel.blue));
+		
 	}
 	void setPixelColor(int index, rgb pixel) {
-		SEGMENT.setPixelColor(index, CRGB(pixel.red, pixel.green, pixel.blue));
+		//SEGMENT.setPixelColor(index, CRGB(pixel.red, pixel.green, pixel.blue));
+		SEGMENT.setPixelColor(index, SEGMENT.color_from_palette(index, true, PALETTE_SOLID_WRAP, 0));
   	}
 
 	// Add any extra custom effects not part of the ANIMartRIX libary here
