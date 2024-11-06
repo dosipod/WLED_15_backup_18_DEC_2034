@@ -329,20 +329,34 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 *
 */ 
 
-
 uint16_t mode_spiral(void) {
-    unsigned counter = (strip.now * ((SEGMENT.speed >> 2) + 2)) & 0xFFFF;
-    counter = counter >> 8;
-    if (SEGMENT.intensity < 128){
-        SEGMENT.fill(color_blend(SEGMENT.color_wheel(counter), WHITE, 128 - SEGMENT.intensity));
+    static uint16_t ledIndex = 0;
+    static bool forward = true;
+
+    // Turn off all LEDs
+    SEGMENT.fill(0);
+
+    // Light up the current LED
+    SEGMENT.setPixelColor(ledIndex, SEGCOLOR(0));
+
+    // Move to the next LED
+    if (forward) {
+        ledIndex++;
+        if (ledIndex >= SEGLEN) {
+            ledIndex = SEGLEN - 1;
+            forward = false;
+        }
     } else {
-        SEGMENT.fill(SEGMENT.color_wheel(counter));
+        ledIndex--;
+        if (ledIndex < 0) {
+            ledIndex = 0;
+            forward = true;
+        }
     }
+
     return FRAMETIME;
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
-
-
 
 
 
