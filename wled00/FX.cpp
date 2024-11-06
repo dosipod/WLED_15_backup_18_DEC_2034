@@ -331,24 +331,7 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
 
 uint16_t mode_spiral(void) {
-    for (int i = 0; i < SEGLEN; i++) {
-        float angle = (float)i / SEGLEN * 2.0 * PI; // Calculate the angle for each LED
-        float radius = (float)i / SEGLEN; // Calculate the radius for each LED
-        uint8_t x = (sin(angle + strip.now / 1000.0) * radius * 127) + 128; // Calculate x position
-        uint8_t y = (cos(angle + strip.now / 1000.0) * radius * 127) + 128; // Calculate y position
-        uint8_t color = (x + y) / 2; // Combine x and y to get the color value
-        SEGMENT.setPixelColor(i, color_blend(SEGCOLOR(0), SEGCOLOR(1), color));
-    }
-    return FRAMETIME;
-}
-static const char _data_FX_MODE_SPIRAL[] PROGMEM = "Spiral@!,!;;!";
-
-/* Aldiy mode_spiral_matrix
-*
-*/ 
-
-uint16_t mode_2Dspiral_matrix(void) {
-    float centerX = 8.0; // Center of the matrix
+   float centerX = 8.0; // Center of the matrix
     float centerY = 8.0; // Center of the matrix
     float radius = 0.0;
     float angle = 0.0;
@@ -369,7 +352,7 @@ uint16_t mode_2Dspiral_matrix(void) {
     }
     return FRAMETIME;
 }
-static const char _data_FX_MODE_2DSPIRAL_MATRIX[] PROGMEM = "2DSpiral matrix@!,!;;!";
+static const char _data_FX_MODE_SPIRAL[] PROGMEM = "Spiral@!,!;;!";
 
 
 
@@ -8058,7 +8041,7 @@ void WS2812FX::setupEffectData() {
 
   addEffect(FX_MODE_2DFIRENOISE, &mode_2Dfirenoise, _data_FX_MODE_2DFIRENOISE);
   addEffect(FX_MODE_2DSQUAREDSWIRL, &mode_2Dsquaredswirl, _data_FX_MODE_2DSQUAREDSWIRL);
-  addEffect(FX_MODE_2DSPIRALMATRIX, &mode_2DSpiralmatrix, _data_FX_MODE_2DSPIRALMATRIX);
+
 
   //non audio
   addEffect(FX_MODE_2DDNA, &mode_2Ddna, _data_FX_MODE_2DDNA);
