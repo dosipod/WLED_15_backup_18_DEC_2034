@@ -331,23 +331,20 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
 
 uint16_t mode_spiral(void) {
-    // Define the colors for the sun effect
-    uint32_t sunColor = 0xFFFF00; // Yellow
-    uint32_t sunGlowColor = 0xFFA500; // Orange
-
-    // Fill the LEDs with the sun color
-    SEGMENT.fill(sunColor);
-
-    // Add a glowing effect
-    for (int i = 0; i < SEGLEN; i++) {
-        uint8_t brightness = sin8((i * 255) / SEGLEN);
-        SEGMENT.setPixelColor(i, color_blend(sunColor, sunGlowColor, brightness));
+    unsigned counter = (strip.now * ((SEGMENT.speed >> 2) + 2)) & 0xFFFF;
+    counter = counter >> 8;
+    if (SEGMENT.intensity < 128){
+        SEGMENT.fill(color_blend(SEGMENT.color_wheel(counter), WHITE, 128 - SEGMENT.intensity));
+    } else {
+        SEGMENT.fill(SEGMENT.color_wheel(counter));
     }
-
     return FRAMETIME;
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
-                                                    
+
+
+
+
 
 /*
  * effect "Dynamic" with smooth color-fading
