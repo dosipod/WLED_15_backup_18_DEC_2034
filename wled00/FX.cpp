@@ -312,7 +312,7 @@ uint16_t mode_dynamic(void) {
 }
 static const char _data_FX_MODE_DYNAMIC[] PROGMEM = "Dynamic@!,!,,,,Smooth;;!";
 
-/* Aldiy mode_wave
+/* Aldiy mode_wave  okay
 *
 */ 
 
@@ -325,31 +325,39 @@ uint16_t mode_wave(void) {
 }
 static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
-/* Aldiy mode_spiral
+/* Aldiy mode_spiral  for testing other effects , ignore name 
 *
 */ 
 
 
 uint16_t mode_spiral(void) {
-   float centerX = 8.0; // Center of the matrix
-    float centerY = 8.0; // Center of the matrix
-    float radius = 0.0;
-    float angle = 0.0;
-    float angleIncrement = 0.1; // Adjust for tighter or looser spiral
-    float radiusIncrement = 0.1; // Adjust for faster or slower spiral expansion
+       // Clear the matrix
+    SEGMENT.fill(SEGCOLOR(1));
 
-    for (int i = 0; i < 256; i++) {
-        int x = centerX + radius * cos(angle);
-        int y = centerY + radius * sin(angle);
-        int index = y * 16 + x; // Convert (x, y) to LED index
-
-        if (index >= 0 && index < 256) {
-            SEGMENT.setPixelColor(index, color_blend(SEGCOLOR(0), SEGCOLOR(1), (i * 255) / 256));
+    // Create raindrops
+    for (int i = 0; i < SEGLEN; i++) {
+        if (random8() < SEGMENT.intensity) {
+            int x = random16(16); // Random x position
+            int y = random16(16); // Random y position
+            int index = y * 16 + x; // Convert (x, y) to LED index
+            SEGMENT.setPixelColor(index, SEGCOLOR(0)); // Set raindrop color
         }
-
-        angle += angleIncrement;
-        radius += radiusIncrement;
     }
+
+    // Move raindrops down
+    for (int y = 15; y >= 0; y--) {
+        for (int x = 0; x < 16; x++) {
+            int index = y * 16 + x;
+            if (SEGMENT.getPixelColor(index) == SEGCOLOR(0)) {
+                int newIndex = (y + 1) * 16 + x;
+                if (newIndex < 256) {
+                    SEGMENT.setPixelColor(newIndex, SEGCOLOR(0));
+                    SEGMENT.setPixelColor(index, SEGCOLOR(1));
+                }
+            }
+        }
+    }
+
     return FRAMETIME;
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "Spiral@!,!;;!";
