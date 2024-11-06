@@ -70,8 +70,8 @@ jobs:
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
-          build_output/release/${{ env.NOW }}*.bin
-          build_output/release/${{ env.NOW }}*_ESP02*.bin.gz
+          build_output/release/*.bin
+          build_output/release/*_ESP02*.bin.gz
   release:
     name: Create Release
     runs-on: ubuntu-latest
@@ -86,8 +86,8 @@ jobs:
       with:
         draft: True
         files: |
-          *.bin
-          *.bin.gz
+          ${{ env.NOW }}*.bin
+          ${{ env.NOW }}*.bin.gz
 
 
   testCdata:
