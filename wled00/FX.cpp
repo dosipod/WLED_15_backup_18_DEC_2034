@@ -360,8 +360,8 @@ uint16_t mode_spiral(void) {
 
     return FRAMETIME;
 }
-static const char _data_FX_MODE_SPIRAL[] PROGMEM = "Spiral@!,!;;!";
-
+static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!;!,!;!;01";
+                                                    
 
 
 
