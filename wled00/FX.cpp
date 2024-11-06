@@ -330,31 +330,49 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 */ 
 
 uint16_t mode_spiral(void) {
-    static uint16_t ledIndex = 0;
-    static bool forward = true;
+     for (int i = 0; i < SEGLEN; i++) {
+    SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 1));
+  }
 
-    // Turn off all LEDs
-    SEGMENT.fill(0);
+  if (SEGENV.aux1 > (SEGMENT.intensity*SEGLEN)/255)
+  {
+    SEGENV.aux0 = 1;
+  } else
+  {
+    if (SEGENV.aux1 < 2) SEGENV.aux0 = 0;
+  }
 
-    // Light up the current LED
-    SEGMENT.setPixelColor(ledIndex, SEGCOLOR(0));
+  unsigned a = SEGENV.step & 0xFFFFU;
 
-    // Move to the next LED
-    if (forward) {
-        ledIndex++;
-        if (ledIndex >= SEGLEN) {
-            ledIndex = SEGLEN - 1;
-            forward = false;
-        }
-    } else {
-        ledIndex--;
-        if (ledIndex < 0) {
-            ledIndex = 0;
-            forward = true;
-        }
+  if (SEGENV.aux0 == 0)
+  {
+    if (SEGENV.call %3 == 1) {a++;}
+    else {SEGENV.aux1++;}
+  } else
+  {
+    a++;
+    if (SEGENV.call %3 != 1) SEGENV.aux1--;
+  }
+
+  if (a >= SEGLEN) a = 0;
+
+  if (a + SEGENV.aux1 < SEGLEN)
+  {
+    for (unsigned i = a; i < a+SEGENV.aux1; i++) {
+      SEGMENT.setPixelColor(i, SEGCOLOR(0));
     }
+  } else
+  {
+    for (unsigned i = a; i < SEGLEN; i++) {
+      SEGMENT.setPixelColor(i, SEGCOLOR(0));
+    }
+    for (unsigned i = 0; i < SEGENV.aux1 - (SEGLEN -a); i++) {
+      SEGMENT.setPixelColor(i, SEGCOLOR(0));
+    }
+  }
+  SEGENV.step = a;
 
-    return FRAMETIME;
+  return 3 + ((8 * (uint32_t)(255 - SEGMENT.speed)) / SEGLEN);
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
 
