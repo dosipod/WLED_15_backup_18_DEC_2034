@@ -369,7 +369,7 @@ uint16_t mode_2Dspiral_matrix(void) {
     }
     return FRAMETIME;
 }
-static const char _data_FX_MODE_2DSPIRAL_MATRIX[] PROGMEM = "2DSpiral_matrix@!,!;;!";
+static const char _data_FX_MODE_2DSPIRAL_MATRIX[] PROGMEM = "2DSpiral matrix@!,!;;!";
 
 
 
@@ -8058,7 +8058,7 @@ void WS2812FX::setupEffectData() {
 
   addEffect(FX_MODE_2DFIRENOISE, &mode_2Dfirenoise, _data_FX_MODE_2DFIRENOISE);
   addEffect(FX_MODE_2DSQUAREDSWIRL, &mode_2Dsquaredswirl, _data_FX_MODE_2DSQUAREDSWIRL);
-  addEffect(FX_MODE_2DSPIRAL_MATRIX, &mode_2DSpiral_matrix, _data_FX_MODE_2DSPIRAL_MATRIX);
+  addEffect(FX_MODE_2DSPIRALMATRIX, &mode_2DSpiralmatrix, _data_FX_MODE_2DSPIRALMATRIX);
 
   //non audio
   addEffect(FX_MODE_2DDNA, &mode_2Ddna, _data_FX_MODE_2DDNA);
