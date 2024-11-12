@@ -330,19 +330,32 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 */ 
 
 uint16_t mode_spiral(void) {
+  static uint8_t angle = 0;
+  angle += 2; // Adjust the speed of rotation by changing this value
+
   for (int y = 0; y < 16; y++) {
     for (int x = 0; x < 16; x++) {
       uint32_t color;
-      if ((x - 8) * (x - 8) + (y - 8) * (y - 8) < 16) {
+      int dx = x - 8;
+      int dy = y - 8;
+      int distance = dx * dx + dy * dy;
+      int rotatedX = dx * cos8(angle) - dy * sin8(angle);
+      int rotatedY = dx * sin8(angle) + dy * cos8(angle);
+
+      if (distance < 16) {
         color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 0); // Proton
-      } else {
+      } else if (rotatedX * rotatedX + rotatedY * rotatedY < 64) {
         color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 1); // Photon
+      } else {
+        color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 2); // Background
       }
+
       SEGMENT.setPixelColor((y * 16) + x, color);
     }
   }
   return FRAMETIME;
 }
+
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
 
 
