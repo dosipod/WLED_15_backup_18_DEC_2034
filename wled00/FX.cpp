@@ -331,7 +331,7 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
 uint16_t mode_spiral(void) {
   static uint8_t angle = 0;
-  angle += 2; // Adjust the speed of rotation by changing this value
+  angle += 45; // Adjust the speed of rotation by changing this value
 
   for (int y = 0; y < 16; y++) {
     for (int x = 0; x < 16; x++) {
