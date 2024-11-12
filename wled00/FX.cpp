@@ -330,49 +330,20 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 */ 
 
 uint16_t mode_spiral(void) {
-     for (int i = 0; i < SEGLEN; i++) {
-    SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 1));
-  }
-
-  if (SEGENV.aux1 > (SEGMENT.intensity*SEGLEN)/255)
-  {
-    SEGENV.aux0 = 1;
-  } else
-  {
-    if (SEGENV.aux1 < 2) SEGENV.aux0 = 0;
-  }
-
-  unsigned a = SEGENV.step & 0xFFFFU;
-
-  if (SEGENV.aux0 == 0)
-  {
-    if (SEGENV.call %3 == 1) {a++;}
-    else {SEGENV.aux1++;}
-  } else
-  {
-    a++;
-    if (SEGENV.call %3 != 1) SEGENV.aux1--;
-  }
-
-  if (a >= SEGLEN) a = 0;
-
-  if (a + SEGENV.aux1 < SEGLEN)
-  {
-    for (unsigned i = a; i < a+SEGENV.aux1; i++) {
-      SEGMENT.setPixelColor(i, SEGCOLOR(0));
-    }
-  } else
-  {
-    for (unsigned i = a; i < SEGLEN; i++) {
-      SEGMENT.setPixelColor(i, SEGCOLOR(0));
-    }
-    for (unsigned i = 0; i < SEGENV.aux1 - (SEGLEN -a); i++) {
-      SEGMENT.setPixelColor(i, SEGCOLOR(0));
+  for (int y = 0; y < 16; y++) {
+    for (int x = 0; x < 16; x++) {
+      uint32_t color;
+      if ((x - 8) * (x - 8) + (y - 8) * (y - 8) < 16) {
+        color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 0); // Proton
+      } else {
+        color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 1); // Photon
+      }
+      SEGMENT.setPixelColor((y * 16) + x, color);
     }
   }
-  SEGENV.step = a;
+  return FRAMETIME;
+}
 
-  return 3 + ((8 * (uint32_t)(255 - SEGMENT.speed)) / SEGLEN);
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
 
