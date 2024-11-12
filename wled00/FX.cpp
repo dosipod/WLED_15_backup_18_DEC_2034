@@ -329,30 +329,37 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 *
 */ 
 
+
 uint16_t mode_spiral(void) {
-  static uint8_t angle = 0;
-  angle += 2; // Adjust the speed of rotation by changing this value
+  if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
 
-  for (int y = 0; y < 16; y++) {
-    for (int x = 0; x < 16; x++) {
-      uint32_t color;
-      int dx = x - 8;
-      int dy = y - 8;
-      int distance = dx * dx + dy * dy;
-      int rotatedX = dx * cos8(angle) - dy * sin8(angle);
-      int rotatedY = dx * sin8(angle) + dy * cos8(angle);
+  const int cols = SEGMENT.virtualWidth();
+  const int rows = SEGMENT.virtualHeight();
+  int x, y;
 
-      if (distance < 16) {
-        color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 0); // Proton
-      } else if (rotatedX * rotatedX + rotatedY * rotatedY < 64) {
-        color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 1); // Photon
-      } else {
-        color = SEGMENT.color_from_palette((y * 16) + x, true, PALETTE_SOLID_WRAP, 2); // Background
-      }
+  SEGMENT.fadeToBlackBy(16 + (SEGMENT.speed >> 3)); // create fading trails
+  unsigned long t = strip.now / 128; // timebase
 
-      SEGMENT.setPixelColor((y * 16) + x, color);
-    }
+  // protons (outer circle)
+  for (size_t i = 0; i < 8; i++) {
+    x = beatsin8(SEGMENT.custom1 >> 3, 0, cols - 1, 0, ((i % 2) ? 128 : 0) + t * i);
+    y = beatsin8(SEGMENT.intensity >> 3, 0, rows - 1, 0, ((i % 2) ? 192 : 64) + t * i);
+    SEGMENT.addPixelColorXY(x, y, SEGMENT.color_from_palette(i * 32, false, PALETTE_SOLID_WRAP, SEGMENT.check1 ? 0 : 255));
   }
+
+  // photons (inner circle)
+  for (size_t i = 0; i < 4; i++) {
+    x = beatsin8(SEGMENT.custom2 >> 3, cols / 4, cols - 1 - cols / 4, 0, ((i % 2) ? 128 : 0) + t * i);
+    y = beatsin8(SEGMENT.custom3, rows / 4, rows - 1 - rows / 4, 0, ((i % 2) ? 192 : 64) + t * i);
+    SEGMENT.addPixelColorXY(x, y, SEGMENT.color_from_palette(255 - i * 64, false, PALETTE_SOLID_WRAP, SEGMENT.check1 ? 0 : 255));
+  }
+
+  // central white dot
+  SEGMENT.setPixelColorXY(cols / 2, rows / 2, WHITE);
+
+  // blur everything a bit
+  if (SEGMENT.check3) SEGMENT.blur(16, cols * rows < 100);
+
   return FRAMETIME;
 
 
