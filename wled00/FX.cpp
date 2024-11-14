@@ -4892,7 +4892,7 @@ uint16_t mode_2DBlackHole(void) {            // By: Stepko https://editor.soulma
 
   return FRAMETIME;
 } // mode_2DBlackHole()
-static const char _data_FX_MODE_2DBLACKHOLE[] PROGMEM = "Black Hole@Fade rate,Outer Y freq.,Outer X freq.,Inner X freq.,Inner Y freq.,Solid,,Blur;!;!;2;pal=11";
+static const char _data_FX_MODE_2DBLACKHOLE[] PROGMEM = "Black Hole with blur@!,Fade rate,Outer Y freq.,Outer X freq.,Inner X freq.,Inner Y freq.,Solid,,Blur;!;!;2;pal=11";
 
 
 ////////////////////////////
