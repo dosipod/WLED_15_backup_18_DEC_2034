@@ -1594,8 +1594,9 @@ class AudioReactive : public Usermod {
           infoArr.add(F("UDP sound sync"));
           if (udpSyncConnected) {
             if (millis() - last_UDPTime < 2500)
-              infoArr.add(F(" - receiving"));
-	
+            //  infoArr.add(F(" - receiving"));
+	    // ALDIY add audioSyncPort  to info page 
+		infoArr.add(FPSTR(audioSyncPort));
             else
               infoArr.add(F(" - idle"));
           } else {
