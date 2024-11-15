@@ -1591,7 +1591,7 @@ class AudioReactive : public Usermod {
         infoArr = user.createNestedArray(F("Audio Source"));
         if (audioSyncEnabled & 0x02) {
           // UDP sound sync - receive mode
-          infoArr.add(F("UDP sound sync"));
+          infoArr.add(F("UDP AR syncX"));
           if (udpSyncConnected) {
             if (millis() - last_UDPTime < 2500)
             //  infoArr.add(F(" - receiving"));
@@ -1604,7 +1604,7 @@ class AudioReactive : public Usermod {
           }
 #ifndef ARDUINO_ARCH_ESP32  // substitute for 8266
         } else {
-          infoArr.add(F("sound sync Off"));
+          infoArr.add(F("ALDIY AR sync Off"));
         }
 #else  // ESP32 only
         } else {
