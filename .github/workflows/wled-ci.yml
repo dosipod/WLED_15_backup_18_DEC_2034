@@ -73,9 +73,8 @@ jobs:
   #---------------------------------------------------------------------------------------    
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.NOW }}-${{ matrix.environment }}
-        path: |
-          build_output/release/${{ env.NOW }}-${{ matrix.environment }}.bin
+        name: ${{ env.NOW }}-${{ matrix.environment }}.bin
+        path: ${{ env.NOW }}-${{ matrix.environment }}.bin
 
         
   release:
