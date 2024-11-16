@@ -75,8 +75,9 @@ jobs:
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
-          build_output/release/*.bin
-          build_output/release/*_ESP02*.bin.gz
+          build_output/release/${{ env.NOW }}-${{ matrix.environment }}*.bin
+          build_output/release/${{ env.NOW }}-${{ matrix.environment }}*_ESP02*.bin.gz
+          retention-days: 30
   release:
     name: Create Release
     runs-on: ubuntu-latest
