@@ -64,14 +64,13 @@ jobs:
         echo ${{ env.NOW }}  # Also Gives "20241031T0304" USING env.NOW 
         echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID  for future use  
  #---------------------------------------------------------------------------------------    
-      
     - name: Build firmware
       run: pio run -e ${{ matrix.environment }}
   #----------------------------------------aldiy-----------------------------------------------         
     - name: Rename Bin
       run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
   #---------------------------------------------------------------------------------------    
-    - name: 'AlDIY-Upload Artifact'
+    - name: 'Upload Artifact'
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
