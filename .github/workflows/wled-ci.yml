@@ -76,7 +76,7 @@ jobs:
         name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
           build_output/release/${{ env.NOW }}-${{ matrix.environment }}.bin
-          build_output/release/${{ env.NOW }}-${{ matrix.environment }}_ESP02.bin.gz
+
         
   release:
     name: Create Release
