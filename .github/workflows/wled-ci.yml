@@ -71,6 +71,7 @@ jobs:
     - name: Rename Bin
       run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
   #---------------------------------------------------------------------------------------    
+    - name: 'AlDIY-Upload Artifact'
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
