@@ -70,7 +70,7 @@ jobs:
         mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
-        name: TheZip-${{ env.NOW }}-${{ matrix.environment }}
+        name: ${{ env.NOW }}-${{ matrix.environment }}
         path: ${{ env.NOW }}-${{ matrix.environment }}
   #        build_output/release/*.bin
   #        build_output/release/*_ESP02*.bin.gz
