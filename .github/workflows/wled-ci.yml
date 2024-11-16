@@ -65,10 +65,12 @@ jobs:
         echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID  for future use  
  #---------------------------------------------------------------------------------------    
     - name: Build firmware
-      run: pio run -e ${{ matrix.environment }}
+      run: |
+        pio run -e ${{ matrix.environment }}
+        mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
-        name: firmware-${{ matrix.environment }}
+        name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
