@@ -67,8 +67,8 @@ jobs:
     - name: Build firmware
       run: pio run -e ${{ matrix.environment }}
   #----------------------------------------aldiy-----------------------------------------------         
-    - name: 'ALDIY- Rename Bin'
-      run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+  #  - name: 'ALDIY- Rename Bin'
+  #    run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
   #---------------------------------------------------------------------------------------    
     - name: 'ALDIY-Upload Artifact'
       uses: actions/upload-artifact@v4
