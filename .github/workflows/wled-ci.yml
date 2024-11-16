@@ -18,7 +18,7 @@ jobs:
     - name: Get default environments
       id: envs
       run: |
-          echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
+        echo "environments=$(pio project config --json-output | jq -cr '.[0][1][0][1]')" >> $GITHUB_OUTPUT
     outputs:
       environments: ${{ steps.envs.outputs.environments }}
 
@@ -70,10 +70,10 @@ jobs:
         mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.NOW }}-${{ matrix.environment }}
-        path: |
-          build_output/release/*.bin
-          build_output/release/*_ESP02*.bin.gz
+        name: TheZip-${{ env.NOW }}-${{ matrix.environment }}
+        path: ${{ env.NOW }}-${{ matrix.environment }}
+  #        build_output/release/*.bin
+  #        build_output/release/*_ESP02*.bin.gz
           
   #-       name: ${{ env.NOW }}-${{ matrix.environment }}
   #-       path: ${{ env.NOW }}-${{ matrix.environment }}
