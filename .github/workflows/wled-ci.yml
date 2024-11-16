@@ -45,8 +45,8 @@ jobs:
               ~/.platformio/.cache
               ~/.buildcache
               build_output
-        key: pio-${{ runner.os }}-${{ env.NOW }}${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'pio-scripts/output_bins.py') }}-${{ hashFiles('wled00/**', 'usermods/**') }}
-        restore-keys: pio-${{ runner.os }}-${{ env.NOW }}${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'pio-scripts/output_bins.py') }}-
+        key: pio-${{ runner.os }}-${{ env.NOW }}-${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'pio-scripts/output_bins.py') }}-${{ hashFiles('wled00/**', 'usermods/**') }}
+        restore-keys: pio-${{ runner.os }}-${{ env.NOW }}-${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'pio-scripts/output_bins.py') }}-
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -75,8 +75,8 @@ jobs:
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}
         path: |
-          build_output/release/${{ env.NOW }}-${{ matrix.environment }}*.bin
-          build_output/release/${{ env.NOW }}-${{ matrix.environment }}*_ESP02*.bin.gz
+          build_output/release/${{ env.NOW }}-${{ matrix.environment }}.bin
+          build_output/release/${{ env.NOW }}-${{ matrix.environment }}_ESP02.bin.gz
           retention-days: 30
   release:
     name: Create Release
