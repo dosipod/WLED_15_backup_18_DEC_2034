@@ -62,7 +62,7 @@ jobs:
 #-----------------------------------------aldiy------------------------------------------------
     - name: 'ALDIY- Set the date as variable'
       id: DateToday
-      run: echo "NOW=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
+      run: echo "NOW=$(date +'%y_%m_%d_T%H%M')" >> $GITHUB_ENV
     - name: 'ALDIY- Print the date variable'
       run: |
         echo $NOW # Gives "20241031T0304" USING NOW 
@@ -72,13 +72,12 @@ jobs:
           cd   build_output/release/
           echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
  #---------------------------------------------------------------------------------------            
-    - name: 'ALDIY- Rename Bin'
-      run: |
-        mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+ #   - name: 'ALDIY- Rename Bin'
+ #     run: |
+ #       mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        #name: Date_${{ env.NOW }}_ENV_${{ matrix.environment }}_RELXX_${{ env.RELXX }}
         name: Date_${{ env.NOW }}_RELXX_${{ env.RELXX }}
         path: |
           build_output/release/*.bin
