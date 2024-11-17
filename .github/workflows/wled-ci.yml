@@ -73,7 +73,7 @@ jobs:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
         path: |
           .pio/build/*.bin
-          .pio/build/*_ESP02*.bin.gz
+      
           
   #-       name: ${{ env.NOW }}-${{ matrix.environment }}
   #-       path: ${{ env.NOW }}-${{ matrix.environment }}
