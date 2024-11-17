@@ -87,7 +87,7 @@ jobs:
     - name: 'ALDIY- Set the relname  as variable'
       run: | 
         echo "RELX_dir=$(echo build_output/release/*.bin)" >> $GITHUB_ENV
-        echo "RELX_file=$(echo *.bin)" >> $GITHUB_ENV
+        echo "RELX_file=$(echo `*.bin`)" >> $GITHUB_ENV
     - name: 'ALDIY- Print the RELXYZ variable'
       run: |
         echo "start FK"
