@@ -66,11 +66,7 @@ jobs:
  #---------------------------------------------------------------------------------------    
     - name: Build firmware
       run:  pio run -e ${{ matrix.environment }}
-    - uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.NOW }}-${{ matrix.environment }}.bin
-        path: |
-          build_output/release/*.bin
+
     - name: ALDIY POST BUILD RENAME STUFF Build firmware
       run: |
           cd   build_output/release/
@@ -82,6 +78,16 @@ jobs:
           echo ${{ env.RELXX  }}
           echo "RELXX below in two lines, line 2" 
           echo $RELXX   
+          
+    - name: 'ALDIY- Rename Bin'
+      run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+      
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.NOW }}-${{ matrix.environment }}.bin
+        path: |
+          build_output/release/*.bin
+          
     
 #-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
     - name: 'ALDIY- Set the RELX_dir RELX_file  as variable'
