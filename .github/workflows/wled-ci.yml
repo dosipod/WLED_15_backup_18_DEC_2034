@@ -60,25 +60,17 @@ jobs:
     - name: Build firmware
       run:  pio run -e ${{ matrix.environment }}
 #-----------------------------------------aldiy------------------------------------------------
-    - name: 'ALDIY- Set the date as variable'
-      id: DateToday
-      run: echo "NOW=$(date +'%y_%m_%d_T%H%M')" >> $GITHUB_ENV
-    - name: 'ALDIY- Print the date variable'
-      run: |
-        echo $NOW # Gives "20241031T0304" USING NOW 
-        echo ${{ env.NOW }}  # Also Gives "20241031T0304" USING env.NOW 
-    - name: ALDIY post build set RELXX
-      run: |
-          cd   build_output/release/
-          echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
- #---------------------------------------------------------------------------------------            
- #   - name: 'ALDIY- Rename Bin'
- #     run: |
- #       mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+    - name: 'ALDIY- Set the date and relese  as variable'
+      run:  |
+        echo "NOW=$(date +'%y_%m_%d_T%H%M')" >> $GITHUB_ENV
+        cd   build_output/release/
+         echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
+ #-----                                              -----------------------------------------            
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: Date_${{ env.NOW }}_RELXX_${{ env.RELXX }}
+        name: ALDIY_${{ env.NOW }}_${{ env.RELXX }}
+#---------------------------------------------------------------------------------------    
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
