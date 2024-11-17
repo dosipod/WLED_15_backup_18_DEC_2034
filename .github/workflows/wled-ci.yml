@@ -73,8 +73,10 @@ jobs:
         echo "The echo of below *.bin"
         echo *.bin
         echo "RelName=$(echo '*.bin')" >> $GITHUB_ENV
-        echo "RelName below" 
+        echo "RelName below in two lines , line 1" 
         echo ${{ env.RelName  }}
+        echo "RelName below in two lines, line 2" 
+        echo $RelName
         mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
