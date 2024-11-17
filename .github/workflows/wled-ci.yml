@@ -72,7 +72,7 @@ jobs:
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
         path: |
-          .pio/build/*.bin
+          .pio/build/${{ env.NOW }}-${{ matrix.environment }}.bin
       
           
   #-       name: ${{ env.NOW }}-${{ matrix.environment }}
