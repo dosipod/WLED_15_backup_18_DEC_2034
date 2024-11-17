@@ -94,7 +94,7 @@ jobs:
         echo $RELX_dir # Full name with path
         echo $RELX_file # only file name 
         echo ${{ env.RELX_dir }}  #  Full name with path
-        echo ${{ env._file }}  # only file name 
+        echo ${{ env.RELX_file }}  # only file name 
         echo "end fk"
  #---------------------------------------------------------------------------------------    
           
