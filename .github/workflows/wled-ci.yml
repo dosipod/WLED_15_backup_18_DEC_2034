@@ -72,9 +72,7 @@ jobs:
         cd  build_output/release/
         echo "The echo of below *.bin"
         echo *.bin
-        #echo "RelName=$('*.bin')" >> $GITHUB_ENV
         echo "RELXX=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
-       
         echo "RelName1 below in two lines , line 1" 
         echo ${{ env.RELXX  }}
         echo "RELXX below in two lines, line 2" 
@@ -85,10 +83,10 @@ jobs:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
         path: |
           build_output/release/*.bin
-#-----------------------------------------aldiy------------------------------------------------
+#-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
     - name: 'ALDIY- Set the relname  as variable'
       id: Relnamehere
-      run: echo "RELXYZ=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
+      run: echo "RELXYZ=$(date +'%dT%H%M')" >> $GITHUB_ENV
     - name: 'ALDIY- Print the RELXYZ variable'
       run: |
         echo "start FK"
