@@ -80,8 +80,9 @@ jobs:
           echo $RELXX   
           
     - name: 'ALDIY- Rename Bin'
-      run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
-      
+      run: |
+        mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+        mv build_output/release/*.bin  ${{ env.RELXX }}${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
