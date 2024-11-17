@@ -65,14 +65,14 @@ jobs:
         echo $GITHUB_RUN_ID  # PRINT GITHUB_RUN_ID  for future use  
  #---------------------------------------------------------------------------------------    
     - name: Build firmware
-      run: |
-        pio run -e ${{ matrix.environment }}
+      run:  pio run -e ${{ matrix.environment }}
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
         path: |
           build_output/release/*.bin
-        run: |
+    - name: ALDIY POST BUILD RENAME STUFF Build firmware
+      run: |
           echo "The echo of below build_output/release/*.bin"
           echo build_output/release/*.bin
           cd   build_output/release/
