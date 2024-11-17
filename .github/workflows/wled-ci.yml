@@ -84,43 +84,11 @@ jobs:
         mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.RELXX }}${{ env.NOW }}-${{ matrix.environment }}.bin
+        name: ${{ env.NOW }}-${{ matrix.environment }}${{ env.RELXX }}
         path: |
           build_output/release/*.bin
           
     
-#-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
-    - name: 'ALDIY- Set the RELX_dir RELX_file  as variable'
-      run: | 
-        echo "RELX_dir=$(echo build_output/release/*.bin)" >> $GITHUB_ENV
-        cd   build_output/release/
-        echo "RELX_file=$(echo *.bin)" >> $GITHUB_ENV
-    - name: 'ALDIY- Print the RELXYZ variable'
-      run: |
-        echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-        echo "start FK"
-        echo "RELX_dir below1"
-        echo $RELX_dir # Full name with path
-        echo "RELX_file below2"
-        echo $RELX_file # only file name 
-        echo "RELX_dir below3"
-        echo ${{ env.RELX_dir }}  #  Full name with path
-        echo "RELX_ile below4"
-        echo ${{ env.RELX_file }}  # only file name 
-        echo "end fk"
-        echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
- #---------------------------------------------------------------------------------------    
-          
-  #-       name: ${{ env.NOW }}-${{ matrix.environment }}
-  #-       path: ${{ env.NOW }}-${{ matrix.environment }}
-  #----------------------------------------aldiy-----------------------------------------------         
-  #  - name: 'ALDIY- Rename Bin'
-  #    run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
-  #        mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
-  #---------------------------------------------------------------------------------------    
-  #  - name: 'ALDIY-Upload Artifact'
-
-
         
   release:
     name: Create Release
