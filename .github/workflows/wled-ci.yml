@@ -72,7 +72,7 @@ jobs:
         cd  build_output/release/
         echo "The echo of below *.bin"
         echo *.bin
-        echo "RelName=$(echo '*.bin')" >> $GITHUB_ENV
+        echo "RelName=$(`echo *.bin`)" >> $GITHUB_ENV
         echo "RelName below in two lines , line 1" 
         echo ${{ env.RelName  }}
         echo "RelName below in two lines, line 2" 
