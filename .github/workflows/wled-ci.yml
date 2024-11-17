@@ -1,4 +1,4 @@
-chname: WLED CI
+name: WLED CI
 
 on: [push, pull_request]
 
