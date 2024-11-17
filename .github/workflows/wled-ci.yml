@@ -86,7 +86,7 @@ jobs:
 #-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
     - name: 'ALDIY- Set the relname  as variable'
       id: Relnamehere
-      run: echo "RELXYZ=$(date +'%dT%H%M')" >> $GITHUB_ENV
+      run: echo "RELXYZ=$(echo build_output/release/*.bin)" >> $GITHUB_ENV
     - name: 'ALDIY- Print the RELXYZ variable'
       run: |
         echo "start FK"
