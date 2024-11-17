@@ -77,9 +77,8 @@ jobs:
           echo build_output/release/*.bin
           cd   build_output/release/
           echo "The echo of below *.bin"
-          echo *.bin
           echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
-          echo "RelName1 below in two lines , line 1" 
+          echo "RELXX below in two lines , line 1" 
           echo ${{ env.RELXX  }}
           echo "RELXX below in two lines, line 2" 
           echo $RELXX
