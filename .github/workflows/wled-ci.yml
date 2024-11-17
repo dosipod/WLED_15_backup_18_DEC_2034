@@ -74,9 +74,9 @@ jobs:
         echo *.bin
         #echo "RelName=$('*.bin')" >> $GITHUB_ENV
         echo "RELXX=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
-        echo "RelName below in two lines , line 1" 
+        echo "RelName1 below in two lines , line 1" 
         echo ${{ env.RELXX  }}
-        echo "RelName below in two lines, line 2" 
+        echo "RELXX below in two lines, line 2" 
         echo $RELXX
         mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
