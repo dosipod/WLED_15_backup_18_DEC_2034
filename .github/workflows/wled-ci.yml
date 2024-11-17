@@ -69,7 +69,7 @@ jobs:
         pio run -e ${{ matrix.environment }}
         echo "The echo of below build_output/release/*.bin"
         echo build_output/release/*.bin
-        cd  build_output/release/
+        cd  `cat build_output/release/`
         echo "The echo of below *.bin"
         echo "*.bin"
         echo "RelName=$( echo build_output/release/*.bin )" >> $GITHUB_ENV
