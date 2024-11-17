@@ -75,7 +75,8 @@ jobs:
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: Date_${{ env.NOW }}_ENV_${{ matrix.environment }}_RELXX_${{ env.RELXX }}
+        #name: Date_${{ env.NOW }}_ENV_${{ matrix.environment }}_RELXX_${{ env.RELXX }}
+        name: Date_${{ env.NOW }}_RELXX_${{ env.RELXX }}
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
