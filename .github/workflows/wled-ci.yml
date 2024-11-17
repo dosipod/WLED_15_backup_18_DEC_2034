@@ -67,7 +67,7 @@ jobs:
     - name: Build firmware
       run: |
         pio run -e ${{ matrix.environment }}
-        mv build_output/release/${{ matrix.environment }}*.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+        mv build_output/release/${{ matrix.environment }}.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
