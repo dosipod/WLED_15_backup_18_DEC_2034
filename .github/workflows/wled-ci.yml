@@ -73,19 +73,18 @@ jobs:
           build_output/release/*.bin
     - name: ALDIY POST BUILD RENAME STUFF Build firmware
       run: |
-          echo "The echo of below build_output/release/*.bin"
-          echo build_output/release/*.bin
           cd   build_output/release/
-          echo "The echo of below *.bin"
           echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
+
+    - name: 'ALDIY- POST Print the RELXX variable'
+      run: |
           echo "RELXX below in two lines , line 1" 
           echo ${{ env.RELXX  }}
           echo "RELXX below in two lines, line 2" 
-          echo $RELXX
-       # mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
+          echo $RELXX   
     
 #-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
-    - name: 'ALDIY- Set the relname  as variable'
+    - name: 'ALDIY- Set the RELX_dir RELX_file  as variable'
       run: | 
         echo "RELX_dir=$(echo build_output/release/*.bin)" >> $GITHUB_ENV
         cd   build_output/release/
@@ -111,6 +110,7 @@ jobs:
   #----------------------------------------aldiy-----------------------------------------------         
   #  - name: 'ALDIY- Rename Bin'
   #    run: mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
+  #        mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
   #---------------------------------------------------------------------------------------    
   #  - name: 'ALDIY-Upload Artifact'
 
