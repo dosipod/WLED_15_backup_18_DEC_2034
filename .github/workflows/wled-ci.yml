@@ -85,12 +85,16 @@ jobs:
           build_output/release/*.bin
 #-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
     - name: 'ALDIY- Set the relname  as variable'
-      run: echo "RELXYZ=$(echo build_output/release/*.bin)" >> $GITHUB_ENV
+      run: | 
+        echo "RELX_dir=$(echo build_output/release/*.bin)" >> $GITHUB_ENV
+        echo "RELX_file=$(echo *.bin)" >> $GITHUB_ENV
     - name: 'ALDIY- Print the RELXYZ variable'
       run: |
         echo "start FK"
-        echo $RELXYZ # Gives "20241031T0304" USING NOW 
-        echo ${{ env.RELXYZ }}  # Also Gives "20241031T0304" USING env.NOW 
+        echo $RELX_dir # Full name with path
+        echo $RELX_file # only file name 
+        echo ${{ env.RELX_dir }}  #  Full name with path
+        echo ${{ env._file }}  # only file name 
         echo "end fk"
  #---------------------------------------------------------------------------------------    
           
