@@ -69,9 +69,9 @@ jobs:
         pio run -e ${{ matrix.environment }}
         echo "The echo of below build_output/release/*.bin"
         echo build_output/release/*.bin
-        cd  build_output/release/
+        cd  `cat build_output/release/`
         echo "The echo of below *.bin"
-        echo *.bin
+        echo `*.bin`
         echo "RELXX=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
         echo "RelName1 below in two lines , line 1" 
         echo ${{ env.RELXX  }}
