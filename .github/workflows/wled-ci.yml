@@ -54,6 +54,8 @@ jobs:
           cache: 'pip'
     - name: Install PlatformIO
       run: pip install -r requirements.txt
+    - name: Build firmware
+      run:  pio run -e ${{ matrix.environment }}
 #-----------------------------------------aldiy------------------------------------------------
     - name: 'ALDIY- Set the date as variable'
       id: DateToday
@@ -62,15 +64,11 @@ jobs:
       run: |
         echo $NOW # Gives "20241031T0304" USING NOW 
         echo ${{ env.NOW }}  # Also Gives "20241031T0304" USING env.NOW 
- #---------------------------------------------------------------------------------------    
-    - name: Build firmware
-      run:  pio run -e ${{ matrix.environment }}
-
     - name: ALDIY post build set RELXX
       run: |
           cd   build_output/release/
           echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
-         
+ #---------------------------------------------------------------------------------------            
     - name: 'ALDIY- Rename Bin'
       run: |
         mv .pio/build/${{ matrix.environment }}/firmware.bin ${{ env.NOW }}-${{ matrix.environment }}.bin
