@@ -67,22 +67,24 @@ jobs:
     - name: Build firmware
       run: |
         pio run -e ${{ matrix.environment }}
-        echo "The echo of below build_output/release/*.bin"
-        echo build_output/release/*.bin
-        cd   build_output/release/
-        echo "The echo of below *.bin"
-        echo *.bin
-        echo "RELXX=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
-        echo "RelName1 below in two lines , line 1" 
-        echo ${{ env.RELXX  }}
-        echo "RELXX below in two lines, line 2" 
-        echo $RELXX
-       # mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.NOW }}-${{ matrix.environment }}.bin
         path: |
           build_output/release/*.bin
+        run: |
+          echo "The echo of below build_output/release/*.bin"
+          echo build_output/release/*.bin
+          cd   build_output/release/
+          echo "The echo of below *.bin"
+          echo *.bin
+          echo "RELXX=$(date +'%y%m%dT%H%M')" >> $GITHUB_ENV
+          echo "RelName1 below in two lines , line 1" 
+          echo ${{ env.RELXX  }}
+          echo "RELXX below in two lines, line 2" 
+          echo $RELXX
+       # mv *.bin ${{ env.RelName }}${{ env.NOW }}-${{ matrix.environment }}.bin
+    
 #-----------------------------------------aldiy2 WORK BECUSE IT IS OUTSIDE THE STEP ------------------------------------------------
     - name: 'ALDIY- Set the relname  as variable'
       run: | 
