@@ -82,6 +82,14 @@ jobs:
       run:  |
         echo "github.repository"
         echo ${{ github.repository }}
+
+        echo "env.REPO_OWNER"
+        echo ${{ env.REPO_OWNER }}
+        
+        echo "env.actor"
+        echo ${{ env.actor }}
+
+        
         
         echo GITHUB_REPOSITORY
         echo $GITHUB_REPOSITORY
