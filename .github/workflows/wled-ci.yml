@@ -71,7 +71,7 @@ jobs:
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{github.actor}}_X1_${{ env.REPO_NAME}}_X2_${{ env.BRANCH_NAME}}_X3_${{ env.NOW }}_${{ env.RELXX }}
+        name: ${{github.actor}}_repo_${{ env.REPO_NAME}}_branch_${{ env.BRANCH_NAME}}_date_${{ env.NOW }}_${{ env.RELXX }}
 #--------------------------------------------------------------------------------------------------------------
         path: |
           build_output/release/*.bin
