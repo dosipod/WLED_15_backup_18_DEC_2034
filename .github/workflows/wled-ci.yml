@@ -68,7 +68,7 @@ jobs:
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: ALDIY_${{ github.event.repository.name }} $GITHUB_REF_NAME ${{ env.NOW }}_${{ env.RELXX }}
+        name: ALDIY_${{ github.event.repository.name }} ${GITHUB_REF##*/} ${{ env.NOW }}_${{ env.RELXX }}
 #--------------------------------------------------------------------------------------------------------------
         path: |
           build_output/release/*.bin
