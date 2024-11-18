@@ -64,11 +64,12 @@ jobs:
         cd   build_output/release/
         echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
         echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
+        echo "BRANCH_NAME=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
         
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: ALDIY_${{ github.event.repository.name }} ${{ github.head_ref }} ${{ env.NOW }}_${{ env.RELXX }}
+        name: ALDIY_${{ env.REPO_NAME}}_${{ env.BRANCH_NAME}}_${{ env.NOW }}_${{ env.RELXX }}
 #--------------------------------------------------------------------------------------------------------------
         path: |
           build_output/release/*.bin
