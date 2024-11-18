@@ -58,18 +58,20 @@ jobs:
     - name: Build firmware
       run:  pio run -e ${{ matrix.environment }}
 #-----------------------------------------aldiy add date and relase name------------------------------------------------
-    - name: 'ALDIY- Set the date and relese  as variable'
+    - name: 'ALDIY- Set the date , relese ..ETC  as variable'
       run:  |
         echo "NOW=$(date +'%y_%m_%d_T%H%M')" >> $GITHUB_ENV
         cd   build_output/release/
+        
         echo "RELXX=$(echo *.bin)" >> $GITHUB_ENV
         echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
         echo "BRANCH_NAME=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+        echo "REPO_OWNER=${{ github.event.pull_request.head.repo.owner.login }} " >> $GITHUB_ENV
         
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: ALDIY_${{ env.REPO_NAME}}_${{ env.BRANCH_NAME}}_${{ env.NOW }}_${{ env.RELXX }}
+        name: ${{ env.REPO_OWNER}}_${{ env.REPO_NAME}}_${{ env.BRANCH_NAME}}_${{ env.NOW }}_${{ env.RELXX }}
 #--------------------------------------------------------------------------------------------------------------
         path: |
           build_output/release/*.bin
@@ -121,8 +123,7 @@ jobs:
         echo GITHUB_ACTION_REPOSITORY
         echo $GITHUB_ACTION_REPOSITORY
         
-        echo "### Take the bins and shutup! :rocket:" >> $GITHUB_STEP_SUMMARY
-        echo "### Take the bins pussy! :cat:" >> $GITHUB_STEP_SUMMARY
+
         
 #--------------------------------------------------------------------------------------------------------------
     - name: Dump github context
@@ -169,3 +170,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
+      - name: AL-DIY-FIN COMMENT 
+        run: |
+         echo "### Take the bins and shutup! :rocket:" >> $GITHUB_STEP_SUMMARY
+         echo "### Take the bins pussy! :cat:" >> $GITHUB_STEP_SUMMARY
