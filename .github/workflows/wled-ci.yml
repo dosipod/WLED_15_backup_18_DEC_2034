@@ -93,7 +93,7 @@ jobs:
         echo $GITHUB_REPOSITORY_OWNER
 
         echo "GITHUB_REPOSITORY_OWNER 2"
-        echo ${{ GITHUB_REPOSITORY_OWNER }}
+        echo ${{ $GITHUB_REPOSITORY_OWNER }}
         
         echo "github.repository.owner"
         echo ${{ github.repository.owner }}
