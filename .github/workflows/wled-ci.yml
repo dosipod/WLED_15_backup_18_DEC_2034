@@ -66,11 +66,19 @@ jobs:
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: ALDIY_${{ github.repository }}_${{ env.NOW }}_${{ env.RELXX }}
+        name: ALDIY_${{ env.NOW }}_${{ env.RELXX }}
 #--------------------------------------------------------------------------------------------------------------
         path: |
           build_output/release/*.bin
           build_output/release/*_ESP02*.bin.gz
+
+#---------------------------------------test zone-----------------------------------------------------------------------
+    - name: 'ALDIY- Prints vars'
+      run:  |
+        echo "github.repository"
+        echo ${{ github.repository }}
+
+#--------------------------------------------------------------------------------------------------------------
     
         
   release:
