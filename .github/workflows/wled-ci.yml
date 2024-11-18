@@ -71,7 +71,7 @@ jobs:
     - name: 'ALDIY- UPLOAD ARTIFACRS'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.REPO_OWNER}}_X1_${{ env.REPO_NAME}}_X2_${{ env.BRANCH_NAME}}_X3_${{ env.NOW }}_${{ env.RELXX }}
+        name: ${{github.actor}}_X1_${{ env.REPO_NAME}}_X2_${{ env.BRANCH_NAME}}_X3_${{ env.NOW }}_${{ env.RELXX }}
 #--------------------------------------------------------------------------------------------------------------
         path: |
           build_output/release/*.bin
@@ -173,4 +173,4 @@ jobs:
       - name: AL-DIY-FIN COMMENT 
         run: |
          echo "### Take the bins and shutup! :rocket:" >> $GITHUB_STEP_SUMMARY
-         echo "### Take the bins pussy! :cat:" >> $GITHUB_STEP_SUMMARY
+         echo "### Dnt be pussy! :cat:" >> $GITHUB_STEP_SUMMARY
