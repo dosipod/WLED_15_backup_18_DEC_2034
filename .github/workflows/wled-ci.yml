@@ -77,20 +77,34 @@ jobs:
       run:  |
         echo "github.repository"
         echo ${{ github.repository }}
+        
         echo GITHUB_REPOSITORY
         echo $GITHUB_REPOSITORY
+        
         echo GITHUB_REF_NAME
         echo $GITHUB_REF_NAME
+        
         echo GITHUB_REPOSITORY_OWNER
         echo $GITHUB_REPOSITORY_OWNER
+        
         echo GITHUB_REPOSITORY_ID
         echo $GITHUB_REPOSITORY_ID
+        
         echo GITHUB_HEAD_REF
         echo $GITHUB_HEAD_REF
+        
+        echo "github.head.ref"
+        echo ${{ github.head.ref }}
+        
         echo GITHUB_BASE_REF
         echo $GITHUB_BASE_REF
+        
+        echo "github.base.ref"
+        echo ${{ github.base.ref }}
+        
         echo GITHUB_ACTOR
         echo $GITHUB_ACTOR
+        
         echo GITHUB_ACTION_REPOSITORY
         echo $GITHUB_ACTION_REPOSITORY
 
