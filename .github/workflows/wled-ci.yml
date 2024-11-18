@@ -121,7 +121,20 @@ jobs:
         
         echo "### Take the bins and shutup! :rocket:" >> $GITHUB_STEP_SUMMARY
         echo "### Take the bins pussy! :cat:" >> $GITHUB_STEP_SUMMARY
+        
 #--------------------------------------------------------------------------------------------------------------
+    - name: Dump github context
+      run:   echo "$GITHUB_CONTEXT"
+      shell: bash
+      env:
+       GITHUB_CONTEXT: ${{ toJson(github) }
+#--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
     
         
   release:
