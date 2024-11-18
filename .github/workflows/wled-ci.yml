@@ -180,4 +180,5 @@ jobs:
       - run: npm test
       - name: AL-DIY-FIN COMMENT 
         run: |
-         echo "### Take the bins and shutup! :rocket: ### Dnt be pussy! :cat:" 
+         echo "### Take the bins and shutup! :rocket:" 
+         echo "### Dnt be a pussy! :cat:" 
