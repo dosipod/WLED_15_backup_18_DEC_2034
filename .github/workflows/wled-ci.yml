@@ -91,6 +91,9 @@ jobs:
         
         echo GITHUB_REPOSITORY_OWNER
         echo $GITHUB_REPOSITORY_OWNER
+
+        echo "GITHUB_REPOSITORY_OWNER 2"
+        echo ${{ GITHUB_REPOSITORY_OWNER }}
         
         echo "github.repository.owner"
         echo ${{ github.repository.owner }}
@@ -117,7 +120,7 @@ jobs:
         echo $GITHUB_ACTION_REPOSITORY
         
         echo "### Take the bins and shutup! :rocket:" >> $GITHUB_STEP_SUMMARY
-
+        echo "### Take the bins pussy! :cat:" >> $GITHUB_STEP_SUMMARY
 #--------------------------------------------------------------------------------------------------------------
     
         
