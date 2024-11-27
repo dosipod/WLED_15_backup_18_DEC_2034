@@ -5283,15 +5283,46 @@ uint16_t mode_2DHiphotic() {                        //  By: ldirko  https://edit
   for (int x = 0; x < cols; x++) {
     for (int y = 0; y < rows; y++) {
       SEGMENT.setPixelColorXY(x, y, SEGMENT.color_from_palette(sin8(cos8(x * SEGMENT.speed/16 + a / 3) + sin8(y * SEGMENT.intensity/16 + a / 4) + a), false, PALETTE_SOLID_WRAP, 0));
+      
     }
   }
 
   return FRAMETIME;
 } // mode_2DHiphotic()
-//static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "Hiphotic@X scale,Y scale,,,Speed;!;!;2";
-static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "HiphoticXD@X scale,Y scale,,,Speed;!;!;2;c3=15";
+//static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "Hiphotic@!,X scale,Y scale,,,;!;!;2";
+
+//static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "HiphoticXD2@X scale,Y scale,,,Speed;!;!;2;c3=15";
 //static const char _data_FX_MODE_2DLISSAJOUS[] PROGMEM = "Lissajous@Xx   ,Fade x ,,,Speed;!;!;2;c3=15";
                                                                                 
+
+//////////////////////////////
+//     2D Lissajous         //
+//////////////////////////////
+uint16_t mode_2DLissajous(void) {            // By: Andrew Tuline
+  if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
+
+  const int cols = SEGMENT.virtualWidth();
+  const int rows = SEGMENT.virtualHeight();
+
+  SEGMENT.fadeToBlackBy(SEGMENT.intensity);
+  uint_fast16_t phase = (strip.now * (1 + SEGENV.custom3)) /32;  // allow user to control rotation speed
+
+  //for (int i=0; i < 4*(cols+rows); i ++) {
+  for (int i=0; i < 256; i ++) {
+    //float xlocn = float(sin8(now/4+i*(SEGMENT.speed>>5))) / 255.0f;
+    //float ylocn = float(cos8(now/4+i*2)) / 255.0f;
+    uint_fast8_t xlocn = sin8(phase/2 + (i*SEGMENT.speed)/32);
+    uint_fast8_t ylocn = cos8(phase/2 + i*2);
+    xlocn = (cols < 2) ? 1 : (map(2*xlocn, 0,511, 0,2*(cols-1)) +1) /2;    // softhack007: "(2* ..... +1) /2" for proper rounding
+    ylocn = (rows < 2) ? 1 : (map(2*ylocn, 0,511, 0,2*(rows-1)) +1) /2;    // "rows > 1" is needed to avoid div/0 in map()
+    SEGMENT.setPixelColorXY((uint8_t)xlocn, (uint8_t)ylocn, SEGMENT.color_from_palette(strip.now/100+i, false, PALETTE_SOLID_WRAP, 0));
+  }
+
+  return FRAMETIME;
+} // mode_2DLissajous()
+static const char _data_FX_MODE_2DLISSAJOUS[] PROGMEM = "Lissajous@X frequency,Fade rate,,,Speed;!;!;2;c3=15";
+
+
 
 /////////////////////////
 //     2D Julia        //
@@ -5410,32 +5441,6 @@ uint16_t mode_2DJulia(void) {                           // An animated Julia set
 static const char _data_FX_MODE_2DJULIA[] PROGMEM = "Julia@,Max iterations per pixel,X center,Y center,Area size;!;!;2;ix=24,c1=128,c2=128,c3=16";
 
 
-//////////////////////////////
-//     2D Lissajous         //
-//////////////////////////////
-uint16_t mode_2DLissajous(void) {            // By: Andrew Tuline
-  if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
-
-  const int cols = SEGMENT.virtualWidth();
-  const int rows = SEGMENT.virtualHeight();
-
-  SEGMENT.fadeToBlackBy(SEGMENT.intensity);
-  uint_fast16_t phase = (strip.now * (1 + SEGENV.custom3)) /32;  // allow user to control rotation speed
-
-  //for (int i=0; i < 4*(cols+rows); i ++) {
-  for (int i=0; i < 256; i ++) {
-    //float xlocn = float(sin8(now/4+i*(SEGMENT.speed>>5))) / 255.0f;
-    //float ylocn = float(cos8(now/4+i*2)) / 255.0f;
-    uint_fast8_t xlocn = sin8(phase/2 + (i*SEGMENT.speed)/32);
-    uint_fast8_t ylocn = cos8(phase/2 + i*2);
-    xlocn = (cols < 2) ? 1 : (map(2*xlocn, 0,511, 0,2*(cols-1)) +1) /2;    // softhack007: "(2* ..... +1) /2" for proper rounding
-    ylocn = (rows < 2) ? 1 : (map(2*ylocn, 0,511, 0,2*(rows-1)) +1) /2;    // "rows > 1" is needed to avoid div/0 in map()
-    SEGMENT.setPixelColorXY((uint8_t)xlocn, (uint8_t)ylocn, SEGMENT.color_from_palette(strip.now/100+i, false, PALETTE_SOLID_WRAP, 0));
-  }
-
-  return FRAMETIME;
-} // mode_2DLissajous()
-static const char _data_FX_MODE_2DLISSAJOUS[] PROGMEM = "Lissajous@X frequency,Fade rate,,,Speed;!;!;2;c3=15";
 
 
 ///////////////////////
