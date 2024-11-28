@@ -5289,7 +5289,7 @@ uint16_t mode_2DHiphotic() {                        //  By: ldirko  https://edit
 
   return FRAMETIME;
 } // mode_2DHiphotic()
-//static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "Hiphotic@!,X scale,Y scale,,,;!;!;2";
+static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "Hiphotic@!,X scale,Y scale,,,;!;!;2";
 
 //static const char _data_FX_MODE_2DHIPHOTIC[] PROGMEM = "HiphoticXD2@X scale,Y scale,,,Speed;!;!;2;c3=15";
 //static const char _data_FX_MODE_2DLISSAJOUS[] PROGMEM = "Lissajous@Xx   ,Fade x ,,,Speed;!;!;2;c3=15";
