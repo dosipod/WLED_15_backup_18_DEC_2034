@@ -7815,11 +7815,9 @@ uint8_t WS2812FX::addEffect(uint8_t id, mode_ptr mode_fn, const char *mode_name)
 
 void WS2812FX::setupEffectData() {
   // Solid must be first! (assuming vector is empty upon call to setup)
-  _mode.push_back(&mode_static);
-  _modeData.push_back(_data_FX_MODE_STATIC);
   // fill reserved word in case there will be any gaps in the array
   for (size_t i=1; i<_modeCount; i++) {
-    _mode.push_back(&mode_static);
+    _mode.push_back(&mode_2DAkemi);
     _modeData.push_back(_data_RESERVED);
   }
   // now replace all pre-allocated effects
