@@ -305,8 +305,14 @@
 #define FX_MODE_2DAKEMI                186
 #define FX_MODE_WAVE                   187
 #define FX_MODE_SPIRAL                 188
+#define FX_MODE_WIPE_OUT               189
+#define FX_MODE_WIPE_IN                190
+#define FX_MODE_WIPE_IN_FAST           191
+#define FX_MODE_WIPE_IN_FASTER         192
+#define FX_MODE_WIPE_IN_VERY_FAST      193
 
-#define MODE_COUNT                     189
+#define MODE_COUNT                     193
+
 
 
 typedef enum mapping1D2D {
