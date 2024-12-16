@@ -879,7 +879,7 @@ class WS2812FX {  // 96 bytes
       isMatrix;
 
 #ifndef WLED_DISABLE_2D
-    #define WLED_MAX_PANELS 18
+    #define WLED_MAX_PANELS 28
     uint8_t
       panels;
 
